@@ -1,0 +1,52 @@
+{
+  "Package": {
+    "prefix": "package",
+    "body": ["package ${1:name} @version(\"${2:1.0.0}\")", "$0"],
+    "description": "The package of a contract file"
+  },
+  "Type": {
+    "prefix": "type",
+    "body": ["/// ${1:What it is.}", "type ${2:Name} {", "  ${3:id}: ${4:uuid}", "  $0", "}"],
+    "description": "A record type"
+  },
+  "Enum": {
+    "prefix": "enum",
+    "body": ["enum ${1:Name} { ${2:A} ${3:B} }"],
+    "description": "An enum"
+  },
+  "Error": {
+    "prefix": "error",
+    "body": ["error ${1:Name} @status(${2:422}) {", "  ${3:field}: ${4:string}", "}"],
+    "description": "A declared error"
+  },
+  "Event": {
+    "prefix": "event",
+    "body": ["event ${1:topic.name}: ${2:Payload} {", "  key: ${3:id}", "}"],
+    "description": "An event sent through a broker"
+  },
+  "HTTP block": {
+    "prefix": "http",
+    "body": ["http ${1:/v1} {", "  ${2|GET,POST,PUT,PATCH,DELETE|} \"${3:/items/{id}}\" ${4:getItem}(${5:id}: ${6:uuid}) -> ${7:Item}", "}"],
+    "description": "A block of HTTP routes"
+  },
+  "HTTP route": {
+    "prefix": "route",
+    "body": ["${1|GET,POST,PUT,PATCH,DELETE|} \"${2:/path}\" ${3:name}(${4}) -> ${5:Result}"],
+    "description": "One HTTP route"
+  },
+  "RPC service": {
+    "prefix": "rpc",
+    "body": ["rpc ${1:Service} {", "  ${2:method}(${3:Request}) -> ${4:Response}", "}"],
+    "description": "A gRPC or typed RPC service"
+  },
+  "GraphQL block": {
+    "prefix": "graphql",
+    "body": ["graphql {", "  query ${1:name}(${2:id}: ${3:uuid}) -> ${4:Result}?", "}"],
+    "description": "GraphQL queries, mutations and subscriptions"
+  },
+  "Socket": {
+    "prefix": "socket",
+    "body": ["socket ${1:name} {", "  server ${2:event.name}: ${3:Payload}", "  client ${4:event.name}: ${5:Payload}", "}"],
+    "description": "A WebSocket or server-sent events channel"
+  }
+}

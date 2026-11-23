@@ -1,0 +1,112 @@
+{
+  "name": "vscode-weft",
+  "displayName": "Weft",
+  "description": "Weft contracts in VS Code: syntax highlighting, snippets and formatting for .weft files",
+  "version": "0.1.0",
+  "publisher": "weft-sdk",
+  "license": "Apache-2.0",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weft-sdk/vscode-weft.git"
+  },
+  "homepage": "https://github.com/weft-sdk/weft",
+  "bugs": {
+    "url": "https://github.com/weft-sdk/vscode-weft/issues"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Formatters"
+  ],
+  "keywords": [
+    "weft",
+    "contracts",
+    "api",
+    "kafka",
+    "grpc",
+    "graphql"
+  ],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "main": "./out/src/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "languages": [
+      {
+        "id": "weft",
+        "aliases": [
+          "Weft",
+          "weft"
+        ],
+        "extensions": [
+          ".weft"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./images/logo.svg",
+          "dark": "./images/logo.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "weft",
+        "scopeName": "source.weft",
+        "path": "./syntaxes/weft.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "weft",
+        "path": "./snippets/weft.code-snippets"
+      }
+    ],
+    "commands": [
+      {
+        "command": "weft.gen",
+        "title": "Weft: Generate code"
+      },
+      {
+        "command": "weft.check",
+        "title": "Weft: Check for breaking changes"
+      },
+      {
+        "command": "weft.fmt",
+        "title": "Weft: Format contracts in the workspace"
+      }
+    ],
+    "configuration": {
+      "title": "Weft",
+      "properties": {
+        "weft.path": {
+          "type": "string",
+          "default": "weft",
+          "description": "The weft command line tool: a name on your PATH, or a full path."
+        }
+      }
+    },
+    "configurationDefaults": {
+      "[weft]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.defaultFormatter": "weft-sdk.vscode-weft"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "npm run build && node --test out/test/extension.test.js",
+    "package": "npm run build && vsce package",
+    "vscode:prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.0",
+    "typescript": "^5.9.0",
+    "vscode-oniguruma": "^2.0.1",
+    "vscode-textmate": "^9.2.0"
+  }
+}

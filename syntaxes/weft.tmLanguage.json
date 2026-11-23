@@ -1,0 +1,116 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Weft",
+  "scopeName": "source.weft",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#declarations" },
+    { "include": "#annotation" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#http-method" },
+    { "include": "#keywords" },
+    { "include": "#builtin-types" },
+    { "include": "#field" },
+    { "include": "#type-name" },
+    { "include": "#operators" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        { "name": "comment.block.documentation.weft", "match": "///.*$" },
+        { "name": "comment.line.double-slash.weft", "match": "//.*$" }
+      ]
+    },
+    "declarations": {
+      "patterns": [
+        {
+          "match": "\\b(package|import)\\b\\s+([A-Za-z_][A-Za-z0-9_]*)",
+          "captures": {
+            "1": { "name": "keyword.control.weft" },
+            "2": { "name": "entity.name.namespace.weft" }
+          }
+        },
+        {
+          "match": "\\b(enum|type|error|rpc|socket)\\b\\s+([A-Za-z_][A-Za-z0-9_]*)",
+          "captures": {
+            "1": { "name": "storage.type.weft" },
+            "2": { "name": "entity.name.type.weft" }
+          }
+        },
+        {
+          "match": "\\b(event)\\b\\s+([A-Za-z_][A-Za-z0-9_.]*)",
+          "captures": {
+            "1": { "name": "storage.type.weft" },
+            "2": { "name": "entity.name.tag.weft" }
+          }
+        },
+        {
+          "match": "\\b(server|client)\\b\\s+([A-Za-z_][A-Za-z0-9_.]*)\\s*(?=:)",
+          "captures": {
+            "1": { "name": "keyword.control.weft" },
+            "2": { "name": "entity.name.tag.weft" }
+          }
+        },
+        {
+          "match": "\\b(http)\\b(?:\\s+(/[A-Za-z0-9_\\-./~%]*))?",
+          "captures": {
+            "1": { "name": "storage.type.weft" },
+            "2": { "name": "string.regexp.weft" }
+          }
+        },
+        {
+          "match": "\\b(graphql)\\b",
+          "name": "storage.type.weft"
+        }
+      ]
+    },
+    "annotation": {
+      "match": "(@)([A-Za-z_][A-Za-z0-9_]*)",
+      "captures": {
+        "1": { "name": "punctuation.definition.annotation.weft" },
+        "2": { "name": "entity.other.attribute-name.weft" }
+      }
+    },
+    "strings": {
+      "name": "string.quoted.double.weft",
+      "begin": "\"",
+      "end": "\"|$",
+      "patterns": [
+        { "name": "constant.character.escape.weft", "match": "\\\\[\"\\\\nt]" },
+        { "name": "variable.parameter.path.weft", "match": "\\{[A-Za-z_][A-Za-z0-9_]*\\}" }
+      ]
+    },
+    "numbers": {
+      "name": "constant.numeric.weft",
+      "match": "-?\\b[0-9]+(\\.[0-9]+)?\\b"
+    },
+    "http-method": {
+      "name": "keyword.other.http-method.weft",
+      "match": "\\b(GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS)\\b"
+    },
+    "keywords": {
+      "name": "keyword.control.weft",
+      "match": "\\b(query|mutation|subscription|stream)\\b(?=\\s)"
+    },
+    "builtin-types": {
+      "name": "support.type.builtin.weft",
+      "match": "\\b(string|bool|int|int32|int64|float|float32|float64|decimal|uuid|timestamp|bytes|map)\\b"
+    },
+    "field": {
+      "match": "^\\s*([A-Za-z_][A-Za-z0-9_]*)\\??\\s*(?=:)",
+      "captures": { "1": { "name": "variable.other.property.weft" } }
+    },
+    "type-name": {
+      "name": "entity.name.type.weft",
+      "match": "\\b[A-Z][A-Za-z0-9_]*\\b"
+    },
+    "operators": {
+      "patterns": [
+        { "name": "keyword.operator.arrow.weft", "match": "->" },
+        { "name": "keyword.operator.union.weft", "match": "\\|" },
+        { "name": "keyword.operator.optional.weft", "match": "\\?" }
+      ]
+    }
+  }
+}
